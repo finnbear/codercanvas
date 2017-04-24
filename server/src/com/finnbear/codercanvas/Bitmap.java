@@ -23,11 +23,19 @@ public class Bitmap {
         _pixels[x][y] = rgb;
     }
 
-    public void loadBitmap(String filename) {
-
+    public int[][] getPixels() {
+        return _pixels;
     }
 
-    public void saveBitmap(String filename) {
+    public void setPixels(int[][] pixels) {
+        _pixels = pixels;
+    }
 
+    public void loadBitmap(FileSystemManager fileSystemManager, String path) {
+       setPixels((int[][])fileSystemManager.loadObject(path + "_pixels" + ".dat"));
+    }
+
+    public void saveBitmap(FileSystemManager fileSystemManager, String path) {
+        fileSystemManager.saveObject(getPixels(), path + "_pixels" + ".dat");
     }
 }

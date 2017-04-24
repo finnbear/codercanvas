@@ -75,4 +75,24 @@ public class SharedBitmap extends Bitmap {
 
         return true;
     }
+
+    public int[][] getOwnership() {
+        return _ownership;
+    }
+
+    public void setOwnership(int[][] ownership) {
+        _ownership = ownership;
+    }
+
+    @Override
+    public void loadBitmap(FileSystemManager fileSystemManager, String path) {
+        super.setPixels((int[][])fileSystemManager.loadObject(path + "_pixels" + ".dat"));
+        setOwnership((int[][])fileSystemManager.loadObject(path + "_ownership" + ".dat"));
+    }
+
+    @Override
+    public void saveBitmap(FileSystemManager fileSystemManager, String path) {
+        fileSystemManager.saveObject(super.getPixels(), path + "_pixels" + ".dat");
+        fileSystemManager.saveObject(getOwnership(), path + "_ownership" + ".dat");
+    }
 }
