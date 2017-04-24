@@ -15,6 +15,14 @@ public class Bitmap {
         _pixels = new int[width][height];
     }
 
+    public int getWidth() {
+        return _width;
+    }
+
+    public int getHeight() {
+        return _height;
+    }
+
     public int getPixel(int x, int y) {
         return _pixels[x][y];
     }

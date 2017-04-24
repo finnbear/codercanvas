@@ -4,9 +4,19 @@ package com.finnbear.codercanvas;
  * © 2017 Finn Bear All Rights Reserved
  */
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class FileSystemManager {
+    private ExecutorService _executorService;
+
+    public FileSystemManager() {
+        _executorService = Executors.newFixedThreadPool(1);
+    }
+
     public void saveObject(Object obj, String path) {
         FileOutputStream fileOutputStream = null;
         ObjectOutputStream objectOutputStream = null;
@@ -59,5 +69,56 @@ public class FileSystemManager {
         }
 
         return null;
+    }
+
+    public void saveBitmapAsImage(Bitmap bitmap, String path, boolean useThread) {
+        if (useThread) {
+            _executorService = Executors.newFixedThreadPool(1);
+
+            Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    saveBitmapAsImage(bitmap, path);
+                }
+            };
+
+            _executorService.submit(runnable);
+            _executorService.shutdown();
+        } else {
+            saveBitmapAsImage(bitmap, path);
+        }
+    }
+
+    private void saveBitmapAsImage(Bitmap bitmap, String path) {
+        BufferedImage bufferedImage = new BufferedImage(bitmap.getWidth(), bitmap.getHeight(), BufferedImage.TYPE_INT_RGB);
+
+        for (int x = 0; x < bitmap.getWidth(); x++) {
+            for (int y = 0; y < bitmap.getHeight(); y++) {
+                bufferedImage.setRGB(x, y, bitmap.getPixel(x, y));
+            }
+        }
+
+        FileOutputStream fileOutputStream = null;
+        BufferedOutputStream bufferedOutputStream = null;
+
+        try {
+            fileOutputStream = new FileOutputStream(path + ".png");
+            bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
+            ImageIO.write(bufferedImage, "png", bufferedOutputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (bufferedOutputStream != null) {
+                    bufferedOutputStream.close();
+                }
+
+                if (fileOutputStream != null) {
+                    fileOutputStream.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
