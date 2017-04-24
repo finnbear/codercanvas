@@ -31,8 +31,12 @@ public class SharedBitmap extends Bitmap {
         }
     }
 
+    public int getPixelOwner(int x, int y) {
+        return _ownership[x][y];
+    }
+
     public boolean setPixelOwner(int x, int y, int owner) {
-        if (_ownership[x][y] == -1) {
+        if (getPixelOwner(x, y) == -1) {
             _ownership[x][y] = owner;
 
             return true;

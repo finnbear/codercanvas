@@ -18,6 +18,9 @@ public class Main {
 
         sharedBitmap2.loadBitmap(fileSystemManager, "bitmap1");
 
+        System.out.println(sharedBitmap2.getPixel(0, 0)); // Output: 0
+        System.out.println(sharedBitmap2.getPixelOwner(0, 0)); // Output: -1
         System.out.println(sharedBitmap2.getPixel(5, 5)); // Output: 255
+        System.out.println(sharedBitmap2.getPixelOwner(5, 5)); // Output: 0
     }
 }
