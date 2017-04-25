@@ -34,7 +34,10 @@ public class ImageHttpHandler implements HttpHandler {
         try {
             httpExchange.sendResponseHeaders(200, imageBytes.length);
             outputStream = httpExchange.getResponseBody();
+            
             outputStream.write(imageBytes);
+
+            outputStream.flush();
 
             System.out.println("ImageHttpHandler - Successfully served image.");
         } finally {
