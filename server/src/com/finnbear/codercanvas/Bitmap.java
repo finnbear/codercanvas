@@ -23,11 +23,15 @@ public class Bitmap {
         return _height;
     }
 
-    public int getPixel(int x, int y) {
+    public boolean checkPixel(int x, int y) {
+        return x >= 0 && x < getWidth() && y >= 0 && y < getHeight();
+    }
+
+    public synchronized int getPixel(int x, int y) {
         return _pixels[x][y];
     }
 
-    public void setPixel(int x, int y, int rgb) {
+    public synchronized void setPixel(int x, int y, int rgb) {
         _pixels[x][y] = rgb;
     }
 
