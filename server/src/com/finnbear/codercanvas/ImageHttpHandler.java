@@ -25,8 +25,6 @@ public class ImageHttpHandler implements HttpHandler {
 
         byte[] imageBytes = dataBufferByte.getData();
 
-        System.out.println(imageBytes.length);
-
         httpExchange.getResponseHeaders().set("Pragma", "public");
         httpExchange.getResponseHeaders().set("Cache-Control", "max-age=0");
         httpExchange.getResponseHeaders().set("Content-Type", "image/png");
