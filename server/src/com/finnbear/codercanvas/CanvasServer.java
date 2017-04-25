@@ -1,9 +1,11 @@
 package com.finnbear.codercanvas;
 
+import com.sun.net.httpserver.HttpServer;
+
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -18,6 +20,8 @@ public class CanvasServer implements  Runnable {
     Bitmap _bitmap;
     FileSystemManager _fileSystemManager;
 
+    HttpServer _imageServer;
+
     protected boolean _running = false;
     protected int _serverPort;
     protected ServerSocket _serverSocket;
@@ -25,7 +29,7 @@ public class CanvasServer implements  Runnable {
     protected ExecutorService _threadPool;
 
     public CanvasServer(int serverPort) {
-        _bitmap = new Bitmap(256, 256);
+        _bitmap = new Bitmap(1024, 1024);
 
         _fileSystemManager = new FileSystemManager();
 
@@ -48,6 +52,11 @@ public class CanvasServer implements  Runnable {
 
         try {
             this._serverSocket = new ServerSocket(this._serverPort);
+
+            _imageServer = HttpServer.create(new InetSocketAddress(80), 0);
+            _imageServer.createContext("/bitmap", new ImageHttpHandler());
+            _imageServer.setExecutor(null);
+            _imageServer.start();
         } catch (IOException e) {
             e.printStackTrace();
         }
