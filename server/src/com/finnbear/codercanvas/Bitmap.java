@@ -9,10 +9,14 @@ public class Bitmap {
     private int _height;
     private int[][] _pixels;
 
+    boolean _modified;
+
     public Bitmap(int width, int height) {
         _width = width;
         _height = height;
         _pixels = new int[width][height];
+
+        _modified = true;
     }
 
     public int getWidth() {
@@ -49,5 +53,13 @@ public class Bitmap {
 
     public void saveBitmap(FileSystemManager fileSystemManager, String path) {
         fileSystemManager.saveObject(getPixels(), path + "_pixels" + ".dat");
+    }
+
+    public boolean getModified() {
+        return _modified;
+    }
+
+    public void setModified(boolean modified) {
+        _modified = modified;
     }
 }

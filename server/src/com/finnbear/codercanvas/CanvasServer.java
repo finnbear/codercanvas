@@ -58,9 +58,13 @@ public class CanvasServer implements  Runnable {
 
         ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
         executor.scheduleAtFixedRate(() -> {
-            System.out.println("CanvasServer - Saving bitmap...");
-            _bitmap.saveBitmap(_fileSystemManager, _bitmapPath);
-            _fileSystemManager.saveBitmapAsImage(_bitmap, _bitmapPath, true);
+            if (_bitmap.getModified()) {
+                System.out.println("CanvasServer - Saving bitmap...");
+                _bitmap.saveBitmap(_fileSystemManager, _bitmapPath);
+                _fileSystemManager.saveBitmapAsImage(_bitmap, _bitmapPath, true);
+
+                _bitmap.setModified(false);
+            }
         }, 0, 10000, TimeUnit.MILLISECONDS);
 
         while (_running) {

@@ -76,6 +76,8 @@ public class ConnectionHandler implements Runnable {
 
                             if (_bitmap.checkPixel(x, y)) {
                                 _bitmap.setPixel(x, y, rgb);
+                                _bitmap.setModified(true);
+
                                 writer.write("OK\n");
                             } else {
                                 writer.write("ERROR PARAMETER_BOUND\n");
