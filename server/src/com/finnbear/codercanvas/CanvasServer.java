@@ -6,6 +6,8 @@ import java.net.Socket;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * © 2017 Finn Bear All Rights Reserved
@@ -46,6 +48,13 @@ public class CanvasServer implements  Runnable {
         }
 
         System.out.println("CanvasServer - Server started.");
+
+        ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+        executor.scheduleAtFixedRate(() -> {
+            _bitmap.saveBitmap(_fileSystemManager, "bitmap");
+            _fileSystemManager.saveBitmapAsImage(_bitmap, "bitmap", true);
+            //System.out.println(_display.getRelativeMousePosition());
+        }, 0, 5000, TimeUnit.MILLISECONDS);
 
         while (_running) {
             Socket clientSocket = null;
