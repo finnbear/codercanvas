@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
  */
 
 public class CanvasServer implements  Runnable {
+    String _bitmapPath = "bitmap";
     Bitmap _bitmap;
     FileSystemManager _fileSystemManager;
 
@@ -27,6 +28,10 @@ public class CanvasServer implements  Runnable {
         _bitmap = new Bitmap(256, 256);
 
         _fileSystemManager = new FileSystemManager();
+
+        if (_fileSystemManager.fileExists(_bitmapPath + "_pixels" + ".dat")) {
+            _bitmap.loadBitmap(_fileSystemManager, _bitmapPath);
+        }
 
         _serverPort = serverPort;
         _threadPool = Executors.newFixedThreadPool(16);
@@ -51,10 +56,10 @@ public class CanvasServer implements  Runnable {
 
         ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
         executor.scheduleAtFixedRate(() -> {
-            _bitmap.saveBitmap(_fileSystemManager, "bitmap");
-            _fileSystemManager.saveBitmapAsImage(_bitmap, "bitmap", true);
-            //System.out.println(_display.getRelativeMousePosition());
-        }, 0, 5000, TimeUnit.MILLISECONDS);
+            System.out.println("CanvasServer - Saving bitmap...");
+            _bitmap.saveBitmap(_fileSystemManager, _bitmapPath);
+            _fileSystemManager.saveBitmapAsImage(_bitmap, _bitmapPath, true);
+        }, 0, 10000, TimeUnit.MILLISECONDS);
 
         while (_running) {
             Socket clientSocket = null;

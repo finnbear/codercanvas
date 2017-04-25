@@ -17,6 +17,10 @@ public class FileSystemManager {
         _executorService = Executors.newFixedThreadPool(1);
     }
 
+    public boolean fileExists(String path) {
+        return new File(path).exists();
+    }
+
     public void saveObject(Object obj, String path) {
         FileOutputStream fileOutputStream = null;
         ObjectOutputStream objectOutputStream = null;
