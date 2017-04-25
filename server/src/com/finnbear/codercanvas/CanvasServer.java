@@ -53,7 +53,7 @@ public class CanvasServer implements  Runnable {
         try {
             this._serverSocket = new ServerSocket(this._serverPort);
 
-            _imageServer = HttpServer.create(new InetSocketAddress(80), 0);
+            _imageServer = HttpServer.create(new InetSocketAddress(4501), 0);
             _imageServer.createContext("/bitmap", new ImageHttpHandler());
             _imageServer.setExecutor(null);
             _imageServer.start();
