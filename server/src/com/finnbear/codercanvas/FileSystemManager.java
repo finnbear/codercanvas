@@ -73,8 +73,6 @@ public class FileSystemManager {
 
     public void saveBitmapAsImage(Bitmap bitmap, String path, boolean useThread) {
         if (useThread) {
-            _executorService = Executors.newFixedThreadPool(1);
-
             Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
@@ -83,7 +81,6 @@ public class FileSystemManager {
             };
 
             _executorService.submit(runnable);
-            _executorService.shutdown();
         } else {
             saveBitmapAsImage(bitmap, path);
         }
@@ -120,5 +117,9 @@ public class FileSystemManager {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void stopExecutorService() {
+        _executorService.shutdown();
     }
 }
