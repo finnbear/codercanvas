@@ -9,7 +9,5 @@ public class Main {
         CanvasServer socketServer = new CanvasServer(4500);
 
         new Thread(socketServer).start();
-
-        while (true) {}
     }
 }
