@@ -6,8 +6,8 @@ package com.finnbear.codercanvas.server;
 
 public class Main {
     public static void main(String[] args) {
-        CanvasServer socketServer = new CanvasServer(4500);
+        CanvasServer canvasServer = new CanvasServer(4500);
 
-        new Thread(socketServer).start();
+        new Thread(canvasServer).start();
     }
 }
