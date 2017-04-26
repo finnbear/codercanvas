@@ -1,9 +1,6 @@
-package com.finnbear.codercanvas;
-
-import com.sun.net.httpserver.HttpServer;
+package com.finnbear.codercanvas.server;
 
 import java.io.IOException;
-import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;

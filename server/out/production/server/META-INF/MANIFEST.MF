@@ -1,3 +1,3 @@
 Manifest-Version: 1.0
-Main-Class: com.finnbear.codercanvas.Main
+Main-Class: com.finnbear.codercanvas.server.Main
 

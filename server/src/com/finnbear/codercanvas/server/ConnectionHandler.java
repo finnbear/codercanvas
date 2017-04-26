@@ -1,4 +1,4 @@
-package com.finnbear.codercanvas;
+package com.finnbear.codercanvas.server;
 
 import java.io.*;
 import java.net.Socket;

@@ -1,4 +1,4 @@
-package com.finnbear.codercanvas;
+package com.finnbear.codercanvas.server;
 
 /*
  * © 2017 Finn Bear All Rights Reserved
