@@ -16,15 +16,15 @@ public class CanvasClient {
     }
 
     public boolean testConnection() {
-        Socket socket;
+        Socket socket = null;
 
-        InputStream inputStream;
-        OutputStream outputStream;
+        InputStream inputStream = null;
+        OutputStream outputStream = null;
 
-        InputStreamReader inputStreamReader;
+        InputStreamReader inputStreamReader = null;
 
-        BufferedReader reader;
-        PrintWriter writer;
+        BufferedReader reader = null;
+        PrintWriter writer = null;
 
         try {
             // Create socket
@@ -52,19 +52,48 @@ public class CanvasClient {
             }
         } catch (IOException e) {
             return false;
+        } finally {
+            try {
+                if (writer != null) {
+                    writer.close();
+                }
+
+                if (reader != null) {
+                    reader.close();
+                }
+
+                if (inputStreamReader != null) {
+                    inputStreamReader.close();
+                }
+
+                if (outputStream != null) {
+                    outputStream.close();
+                }
+
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+
+                if (socket != null) {
+                    socket.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
         }
     }
 
     public int getPixel(int x, int y) {
-        Socket socket;
+        Socket socket = null;
 
-        InputStream inputStream;
-        OutputStream outputStream;
+        InputStream inputStream = null;
+        OutputStream outputStream = null;
 
-        InputStreamReader inputStreamReader;
+        InputStreamReader inputStreamReader = null;
 
-        BufferedReader reader;
-        PrintWriter writer;
+        BufferedReader reader = null;
+        PrintWriter writer = null;
 
         try {
             // Create socket
@@ -94,19 +123,48 @@ public class CanvasClient {
             }
         } catch (IOException e) {
             return -1;
+        } finally {
+            try {
+                if (writer != null) {
+                    writer.close();
+                }
+
+                if (reader != null) {
+                    reader.close();
+                }
+
+                if (inputStreamReader != null) {
+                    inputStreamReader.close();
+                }
+
+                if (outputStream != null) {
+                    outputStream.close();
+                }
+
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+
+                if (socket != null) {
+                    socket.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                return -1;
+            }
         }
     }
 
     public boolean setPixel(int x, int y, int rgb) {
-        Socket socket;
+        Socket socket = null;
 
-        InputStream inputStream;
-        OutputStream outputStream;
+        InputStream inputStream = null;
+        OutputStream outputStream = null;
 
-        InputStreamReader inputStreamReader;
+        InputStreamReader inputStreamReader = null;
 
-        BufferedReader reader;
-        PrintWriter writer;
+        BufferedReader reader = null;
+        PrintWriter writer = null;
 
         try {
             // Create socket
@@ -134,6 +192,35 @@ public class CanvasClient {
             }
         } catch (IOException e) {
             return false;
+        } finally {
+            try {
+                if (writer != null) {
+                    writer.close();
+                }
+
+                if (reader != null) {
+                    reader.close();
+                }
+
+                if (inputStreamReader != null) {
+                    inputStreamReader.close();
+                }
+
+                if (outputStream != null) {
+                    outputStream.close();
+                }
+
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+
+                if (socket != null) {
+                    socket.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
         }
     }
 }
